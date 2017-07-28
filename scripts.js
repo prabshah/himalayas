@@ -1,7 +1,4 @@
-
-//////////////// Scroll Top functionality /////////////////
-
-
+//// Scroll Top functionality ////
 window.onscroll = function() {
   scrollFunction();
 };
@@ -14,21 +11,31 @@ function scrollFunction() {
   }
 }
 
-// When the user clicks on the button, scroll to the top of the document
+// When the user clicks on the button, scroll to the top of the document using jQuery //
+
 function topFunction() {
-  document.body.scrollTop = 0; // For Chrome, Safari and Opera
-  document.documentElement.scrollTop = 0; // For IE and Firefox
+  $('html, body').animate({
+    scrollTop : 0
+  }, 500);
 }
 
-// responsive navigation using jqyery /////////////////
+// Responsive navigation using jQuery//
 
-$('button.toggle-icon').on('click', function() {
-	$('nav > ul').toggleClass('responsive-ul');
-	$('nav').toggleClass('responsive-nav-height');
-
+$("button.toggle-icon").on("click", function() {
+  $("nav > ul").toggleClass("responsive-ul");
+  $("nav").toggleClass("responsive-nav-height");
 });
 
-if($(window).width() > 950){
-  $('nav').css('height', '50px');
-}
+// animated scrolling to different sections //
 
+var anchors = $('a[href^="#"]');
+anchors.on('click', function(e) {
+  e.preventDefault();
+  var target = this.hash;
+  var $target = $(target);
+  $('html, body').animate({
+    'scrollTop':$target.offset().top
+  },900, 'swing', function() {
+    window.location.hash = target;
+  }); 
+});
